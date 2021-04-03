@@ -57,7 +57,7 @@ public class FamilyInitializer {
 
 	private Member addChild(Family family, String motherName, String name, Gender gender) {
 		Member child = Member.builder().name(name).gender(gender).build();
-		return family.addChild(motherName, child);
+		return family.addInitialChild(motherName, child);
 	}
 
 }

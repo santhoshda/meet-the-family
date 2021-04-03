@@ -2,11 +2,14 @@ package com.geektrust.meetthefamily.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.geektrust.meetthefamily.enums.Gender;
 
 import lombok.Builder;
 import lombok.Data;
+import static com.geektrust.meetthefamily.constants.Messages.*;
 
 @Builder
 @Data
@@ -25,52 +28,49 @@ public class Member {
 	}
 
 	public String getChildren(Gender gender) {
-		StringBuilder sb = new StringBuilder("");
-		for (Member m : getChildren()) {
-			if (m.getGender() == gender) {
-				sb.append(m.getName()).append(" ");
-			}
+		if (getChildren() != null) {
+			String children = getChildren().stream()
+					.filter(child -> child.getGender() == gender)
+					.map(Member::getName)
+					.collect(Collectors.joining(" "));
+			return children;
 		}
-		return sb.toString().trim();
-	}
-
-	public String getSiblings() {
-		StringBuilder sb = new StringBuilder("");
-		for (Member m : getMother().getChildren()) {
-			sb.append(m.getName()).append(" ");
-		}
-		return sb.toString().trim();
+		return NONE;
 	}
 
 	public String getSiblings(Gender gender) {
-		StringBuilder sb = new StringBuilder("");
-		for (Member m : getMother().getChildren()) {
-			if (m.getGender() == gender) {
-				sb.append(m.getName()).append(" ");
+		List<Member> children = getMother().getChildren();
+		if (children != null) {
+			Stream<Member> stream = children.stream().filter(child -> !child.equals(Member.this));
+			if (gender != null) {
+				stream.filter(child -> child.getGender() == gender);
 			}
+			String siblings = stream.map(Member::getName).collect(Collectors.joining(" "));
+			return (siblings == null || siblings.equals("")) ? NONE : siblings;
 		}
-		return sb.toString().trim();
+		return NONE;
 	}
 
 	public String getInLaws(Gender gender) {
-		StringBuilder sb = new StringBuilder("");
-		if (getSpouse() != null && getSpouse().getMother() != null) {
-			for (Member m : getSpouse().getMother().getChildren()) {
-				if (m.getGender() == gender && m.getName() != getSpouse().getName()) {
-					sb.append(m.getName()).append(" ");
-				}
-			}
+		StringBuilder inLaws = new StringBuilder();
+		if (getSpouse() != null && getSpouse().getMother() != null && getSpouse().getMother().getChildren() != null) {
+			inLaws.append(getSpouse().getMother()
+					.getChildren()
+					.stream()
+					.filter(child -> !child.equals(getSpouse()))
+					.filter(child -> child.getGender() == gender)
+					.map(Member::getName)
+					.collect(Collectors.joining(" ")));
 		}
 		if (getMother() != null && getMother().getChildren() != null) {
-			for (Member m : getMother().getChildren()) {
-				if (m.getSpouse() != null && m.getSpouse().getGender() == gender
-						&& !(getSpouse().getName().equals(m.getSpouse().getName()))) {
-					sb.append(m.getSpouse().getName()).append(" ");
-				}
-			}
-
+			inLaws.append(getMother().getChildren()
+					.stream()
+					.filter(child -> child.getSpouse() != null && !child.equals(getSpouse()))
+					.filter(child -> child.getSpouse().getGender() == gender)
+					.map(Member::getName)
+					.collect(Collectors.joining(" ")));
 		}
-		return sb.toString().trim();
+		return inLaws.length() > 0 ? inLaws.toString() : NONE;
 	}
 
 }

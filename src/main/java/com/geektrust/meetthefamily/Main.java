@@ -9,6 +9,8 @@ import java.util.List;
 import com.geektrust.meetthefamily.enums.Gender;
 import com.geektrust.meetthefamily.models.Family;
 import com.geektrust.meetthefamily.models.Member;
+import static com.geektrust.meetthefamily.constants.Messages.*;
+import static com.geektrust.meetthefamily.constants.Commands.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -17,7 +19,7 @@ public class Main {
 		try {
 			main.processFile(family, args[0]);
 		} catch (ArrayIndexOutOfBoundsException exception) {
-			System.out.println("Enter file location.");
+			System.out.println(INVALID_FILE_LOCATION);
 		}
 	}
 
@@ -32,31 +34,30 @@ public class Main {
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.out.println("File Not Found.");
+			System.out.println(FILE_NOT_FOUND);
 		}
 	}
 
 	private void processCommand(Family family, List<String> args) {
 		try {
-			if (args.get(0).equals("ADD_CHILD")) {
+			if (args.get(0).equals(ADD_CHILD)) {
 				addChild(family, args.get(1), args.get(2), Gender.of(args.get(3)));
-			} else if (args.get(0).equals("GET_RELATIONSHIP")) {
+			} else if (args.get(0).equals(GET_RELATIONSHIP)) {
 				printRelationship(family, args.get(1), args.get(2));
 			} else {
 				throw new Exception();
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
-			System.out.println("Invalid Command");
+			System.out.println(INVALID_COMMAND);
 		}
 	}
 
-	private void printRelationship(Family family, String name, String relationship) {
-		System.out.println(family.findRelationship(name,relationship));
+	private void addChild(Family family, String motherName, String name, Gender gender) {
+		System.out.println(family.addChild(motherName, Member.builder().name(name).gender(gender).build()));
 	}
 
-	private Member addChild(Family family, String motherName, String name, Gender gender) {
-		Member child = Member.builder().name(name).gender(gender).build();
-		return family.addChild(motherName, child);
+	private void printRelationship(Family family, String name, String relationship) {
+		System.out.println(family.findRelationship(name, relationship));
 	}
 }
