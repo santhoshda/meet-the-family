@@ -1,5 +1,9 @@
 package com.geektrust.meetthefamily.constants;
 
+/**
+ * @author Santhosh Babu A
+ *
+ */
 public class Relationships {
 	public static final String PATERNAL_UNCLE = "Paternal-Uncle";
 	public static final String MATERNAL_UNCLE = "Maternal-Uncle";
@@ -10,5 +14,4 @@ public class Relationships {
 	public static final String SON = "Son";
 	public static final String DAUGHTER = "Daughter";
 	public static final String SIBLINGS = "Siblings";
-
 }

@@ -6,13 +6,15 @@ import com.geektrust.meetthefamily.enums.Gender;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 import static com.geektrust.meetthefamily.constants.Messages.*;
 import static com.geektrust.meetthefamily.constants.Relationships.*;
 
+/**
+ * @author Santhosh Babu A
+ *
+ */
 @Builder
 @Data
-@ToString
 public class Family {
 
 	private Member king;

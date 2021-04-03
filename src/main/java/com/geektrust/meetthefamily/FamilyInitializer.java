@@ -4,6 +4,10 @@ import com.geektrust.meetthefamily.enums.Gender;
 import com.geektrust.meetthefamily.models.Family;
 import com.geektrust.meetthefamily.models.Member;
 
+/**
+ * @author Santhosh Babu A
+ *
+ */
 public class FamilyInitializer {
 
 	public Family initialize() {
@@ -21,25 +25,25 @@ public class FamilyInitializer {
 		addSpouse(aras, "Chitra", Gender.FEMALE);
 		Member satya = addChild(family, "Queen Anga", "Satya", Gender.FEMALE);
 		addSpouse(satya, "Vyan", Gender.MALE);
-		
+
 		Member dritha = addChild(family, "Amba", "Dritha", Gender.FEMALE);
 		addSpouse(dritha, "Jaya", Gender.MALE);
 		addChild(family, "Amba", "Tritha", Gender.FEMALE);
 		addChild(family, "Amba", "Vritha", Gender.MALE);
-		
+
 		addChild(family, "Lika", "Vila", Gender.FEMALE);
 		addChild(family, "Lika", "Chika", Gender.FEMALE);
-		
+
 		Member jnki = addChild(family, "Chitra", "Jnki", Gender.FEMALE);
 		addSpouse(jnki, "Arit", Gender.MALE);
 		addChild(family, "Chitra", "Ahit", Gender.MALE);
-		
+
 		Member asva = addChild(family, "Satya", "Asva", Gender.MALE);
 		addSpouse(asva, "Satvy", Gender.FEMALE);
 		Member vyas = addChild(family, "Satya", "Vyas", Gender.MALE);
 		addSpouse(vyas, "Krpi", Gender.FEMALE);
 		addChild(family, "Satya", "Atya", Gender.FEMALE);
-		
+
 		addChild(family, "Dritha", "Yodhan", Gender.MALE);
 		addChild(family, "Jnki", "Laki", Gender.MALE);
 		addChild(family, "Jnki", "Lavnya", Gender.FEMALE);

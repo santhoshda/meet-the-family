@@ -12,6 +12,12 @@ import com.geektrust.meetthefamily.models.Member;
 import static com.geektrust.meetthefamily.constants.Messages.*;
 import static com.geektrust.meetthefamily.constants.Commands.*;
 
+/**
+ * Main class to
+ * 
+ * @author Santhosh Babu A
+ *
+ */
 public class Main {
 	public static void main(String[] args) {
 		Family family = new FamilyInitializer().initialize();
@@ -19,7 +25,7 @@ public class Main {
 		try {
 			main.processFile(family, args[0]);
 		} catch (ArrayIndexOutOfBoundsException exception) {
-			System.out.println(INVALID_FILE_LOCATION);
+			System.out.println(MISSING_ARGUMENT);
 		}
 	}
 

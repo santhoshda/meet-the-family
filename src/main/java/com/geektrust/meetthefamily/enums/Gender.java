@@ -1,5 +1,9 @@
 package com.geektrust.meetthefamily.enums;
 
+/**
+ * @author Santhosh Babu A
+ *
+ */
 public enum Gender {
 	MALE("Male"), FEMALE("Female");
 

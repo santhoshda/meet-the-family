@@ -11,6 +11,10 @@ import lombok.Builder;
 import lombok.Data;
 import static com.geektrust.meetthefamily.constants.Messages.*;
 
+/**
+ * @author Santhosh Babu A
+ *
+ */
 @Builder
 @Data
 public class Member {
@@ -43,7 +47,7 @@ public class Member {
 		if (children != null) {
 			Stream<Member> stream = children.stream().filter(child -> !child.equals(Member.this));
 			if (gender != null) {
-				stream.filter(child -> child.getGender() == gender);
+				stream = stream.filter(child -> child.getGender() == gender);
 			}
 			String siblings = stream.map(Member::getName).collect(Collectors.joining(" "));
 			return (siblings == null || siblings.equals("")) ? NONE : siblings;
@@ -67,7 +71,7 @@ public class Member {
 					.stream()
 					.filter(child -> child.getSpouse() != null && !child.equals(getSpouse()))
 					.filter(child -> child.getSpouse().getGender() == gender)
-					.map(Member::getName)
+					.map(brother -> brother.getSpouse().getName())
 					.collect(Collectors.joining(" ")));
 		}
 		return inLaws.length() > 0 ? inLaws.toString() : NONE;
