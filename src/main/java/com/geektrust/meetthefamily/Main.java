@@ -51,11 +51,10 @@ public class Main {
 			} else if (args.get(0).equals(GET_RELATIONSHIP)) {
 				printRelationship(family, args.get(1), args.get(2));
 			} else {
-				throw new Exception();
+				System.out.println(INVALID_COMMAND);
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			System.out.println(INVALID_COMMAND);
+		} catch (IndexOutOfBoundsException exception) {
+			System.out.println(MISSING_ARGUMENT);
 		}
 	}
 
