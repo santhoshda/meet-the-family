@@ -63,7 +63,8 @@ public class Member {
 		}
 		if (getMother() != null && getMother().getChildren() != null) {
 			for (Member m : getMother().getChildren()) {
-				if (m.getSpouse() != null && m.getGender() == gender) {
+				if (m.getSpouse() != null && m.getSpouse().getGender() == gender
+						&& !(getSpouse().getName().equals(m.getSpouse().getName()))) {
 					sb.append(m.getSpouse().getName()).append(" ");
 				}
 			}

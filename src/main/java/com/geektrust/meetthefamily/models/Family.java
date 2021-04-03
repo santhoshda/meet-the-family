@@ -16,7 +16,7 @@ public class Family {
 	private Member queen;
 
 	public Member addChild(String motherName, Member child) {
-		Member mother = findMember(motherName);
+		Member mother = findMother(motherName);
 		if (mother != null) {
 			child.setMother(mother);
 			mother.addChild(child);
@@ -25,7 +25,7 @@ public class Family {
 		return null;
 	}
 
-	private Member findMember(String memberName) {
+	private Member findMother(String memberName) {
 		Stack<Member> stack = new Stack<>();
 		stack.push(queen);
 		while (!stack.isEmpty()) {
@@ -47,6 +47,30 @@ public class Family {
 			}
 		}
 		return null;
+	}
+
+	private Member findMember(String memberName) {
+		Stack<Member> stack = new Stack<>();
+		stack.push(king);
+		while (!stack.isEmpty()) {
+			Member member = stack.pop();
+			if (member.getName().equals(memberName)) {
+				return member;
+			} else if (member.getSpouse() != null && member.getSpouse().getName().equals(memberName)) {
+				return member.getSpouse();
+			} else if (member.getGender() == Gender.MALE && member.getSpouse() != null
+					&& member.getSpouse().getChildren() != null) {
+				for (Member child : member.getSpouse().getChildren()) {
+					stack.push(child);
+				}
+			} else if (member.getGender() == Gender.FEMALE && member.getChildren() != null) {
+				for (Member child : member.getChildren()) {
+					stack.push(child);
+				}
+			}
+		}
+		return null;
+
 	}
 
 	public String findRelationship(String name, String relationship) {
