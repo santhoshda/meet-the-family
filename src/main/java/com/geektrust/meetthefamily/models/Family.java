@@ -10,6 +10,8 @@ import static com.geektrust.meetthefamily.constants.Messages.*;
 import static com.geektrust.meetthefamily.constants.Relationships.*;
 
 /**
+ * Family contains the King and Queen.
+ * 
  * @author Santhosh Babu A
  *
  */
@@ -17,11 +19,18 @@ import static com.geektrust.meetthefamily.constants.Relationships.*;
 @Data
 public class Family {
 
-	private Member king;
-	private Member queen;
+	private FamilyMember king;
+	private FamilyMember queen;
 
-	public Member addInitialChild(String motherName, Member child) {
-		Member member = findMember(motherName);
+	/**
+	 * Adds child to the mother - Method used only for initial setup.
+	 * 
+	 * @param motherName
+	 * @param child
+	 * @return FamilyMember
+	 */
+	public FamilyMember addInitialChild(String motherName, FamilyMember child) {
+		FamilyMember member = findMember(motherName);
 		if (member != null) {
 			child.setMother(member);
 			member.addChild(child);
@@ -30,8 +39,15 @@ public class Family {
 		return null;
 	}
 
-	public String addChild(String motherName, Member child) {
-		Member member = findMember(motherName);
+	/**
+	 * Adds child to the mother.
+	 * 
+	 * @param motherName
+	 * @param child
+	 * @return {@link}Messages
+	 */
+	public String addChild(String motherName, FamilyMember child) {
+		FamilyMember member = findMember(motherName);
 		if (member == null) {
 			return PERSON_NOT_FOUND;
 		} else if (member.getGender() != Gender.FEMALE) {
@@ -43,22 +59,29 @@ public class Family {
 		}
 	}
 
-	private Member findMember(String memberName) {
-		Stack<Member> stack = new Stack<>();
+	/**
+	 * Finds a member in the Family using the name. Implementation - Basic Depth
+	 * First Search using Stack.
+	 * 
+	 * @param memberName
+	 * @return FamilyMember
+	 */
+	private FamilyMember findMember(String memberName) {
+		Stack<FamilyMember> stack = new Stack<>();
 		stack.push(king);
 		while (!stack.isEmpty()) {
-			Member member = stack.pop();
+			FamilyMember member = stack.pop();
 			if (member.getName().equals(memberName)) {
 				return member;
 			} else if (member.getSpouse() != null && member.getSpouse().getName().equals(memberName)) {
 				return member.getSpouse();
 			} else if (member.getGender() == Gender.MALE && member.getSpouse() != null
 					&& member.getSpouse().getChildren() != null) {
-				for (Member child : member.getSpouse().getChildren()) {
+				for (FamilyMember child : member.getSpouse().getChildren()) {
 					stack.push(child);
 				}
 			} else if (member.getGender() == Gender.FEMALE && member.getChildren() != null) {
-				for (Member child : member.getChildren()) {
+				for (FamilyMember child : member.getChildren()) {
 					stack.push(child);
 				}
 			}
@@ -66,8 +89,15 @@ public class Family {
 		return null;
 	}
 
+	/**
+	 * Finds the members matching the relationship to the member.
+	 * 
+	 * @param name
+	 * @param relationship
+	 * @return {@link}Messages
+	 */
 	public String findRelationship(String name, String relationship) {
-		Member member = findMember(name);
+		FamilyMember member = findMember(name);
 		if (member == null) {
 			return PERSON_NOT_FOUND;
 		}

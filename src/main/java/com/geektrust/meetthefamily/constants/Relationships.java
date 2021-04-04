@@ -1,6 +1,8 @@
 package com.geektrust.meetthefamily.constants;
 
 /**
+ * Relationship Constants
+ * 
  * @author Santhosh Babu A
  *
  */

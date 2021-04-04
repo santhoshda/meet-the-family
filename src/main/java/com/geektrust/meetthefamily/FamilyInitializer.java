@@ -2,31 +2,35 @@ package com.geektrust.meetthefamily;
 
 import com.geektrust.meetthefamily.enums.Gender;
 import com.geektrust.meetthefamily.models.Family;
-import com.geektrust.meetthefamily.models.Member;
+import com.geektrust.meetthefamily.models.FamilyMember;
 
 /**
+ * FamilyInitializer class initializes the Family tree with preset values.
+ * 
  * @author Santhosh Babu A
  *
  */
 public class FamilyInitializer {
 
+	/**
+	 * Initializes the family tree with King and Queen and adds child and spouses.
+	 */
 	public Family initialize() {
-
-		Member queen = Member.builder().name("Queen Anga").gender(Gender.FEMALE).build();
-		Member king = Member.builder().name("King Shan").gender(Gender.MALE).spouse(queen).build();
+		FamilyMember queen = FamilyMember.builder().name("Queen Anga").gender(Gender.FEMALE).build();
+		FamilyMember king = FamilyMember.builder().name("King Shan").gender(Gender.MALE).spouse(queen).build();
 		Family family = Family.builder().king(king).queen(queen).build();
 
-		Member chit = addChild(family, "Queen Anga", "Chit", Gender.MALE);
+		FamilyMember chit = addChild(family, "Queen Anga", "Chit", Gender.MALE);
 		addSpouse(chit, "Amba", Gender.FEMALE);
 		addChild(family, "Queen Anga", "Ish", Gender.MALE);
-		Member vich = addChild(family, "Queen Anga", "Vich", Gender.MALE);
+		FamilyMember vich = addChild(family, "Queen Anga", "Vich", Gender.MALE);
 		addSpouse(vich, "Lika", Gender.FEMALE);
-		Member aras = addChild(family, "Queen Anga", "Aras", Gender.MALE);
+		FamilyMember aras = addChild(family, "Queen Anga", "Aras", Gender.MALE);
 		addSpouse(aras, "Chitra", Gender.FEMALE);
-		Member satya = addChild(family, "Queen Anga", "Satya", Gender.FEMALE);
+		FamilyMember satya = addChild(family, "Queen Anga", "Satya", Gender.FEMALE);
 		addSpouse(satya, "Vyan", Gender.MALE);
 
-		Member dritha = addChild(family, "Amba", "Dritha", Gender.FEMALE);
+		FamilyMember dritha = addChild(family, "Amba", "Dritha", Gender.FEMALE);
 		addSpouse(dritha, "Jaya", Gender.MALE);
 		addChild(family, "Amba", "Tritha", Gender.FEMALE);
 		addChild(family, "Amba", "Vritha", Gender.MALE);
@@ -34,13 +38,13 @@ public class FamilyInitializer {
 		addChild(family, "Lika", "Vila", Gender.FEMALE);
 		addChild(family, "Lika", "Chika", Gender.FEMALE);
 
-		Member jnki = addChild(family, "Chitra", "Jnki", Gender.FEMALE);
+		FamilyMember jnki = addChild(family, "Chitra", "Jnki", Gender.FEMALE);
 		addSpouse(jnki, "Arit", Gender.MALE);
 		addChild(family, "Chitra", "Ahit", Gender.MALE);
 
-		Member asva = addChild(family, "Satya", "Asva", Gender.MALE);
+		FamilyMember asva = addChild(family, "Satya", "Asva", Gender.MALE);
 		addSpouse(asva, "Satvy", Gender.FEMALE);
-		Member vyas = addChild(family, "Satya", "Vyas", Gender.MALE);
+		FamilyMember vyas = addChild(family, "Satya", "Vyas", Gender.MALE);
 		addSpouse(vyas, "Krpi", Gender.FEMALE);
 		addChild(family, "Satya", "Atya", Gender.FEMALE);
 
@@ -53,14 +57,30 @@ public class FamilyInitializer {
 		return family;
 	}
 
-	private void addSpouse(Member member, String name, Gender gender) {
-		Member spouse = Member.builder().name(name).gender(gender).build();
+	/**
+	 * Adds spouse to a member.
+	 * 
+	 * @param member
+	 * @param name
+	 * @param gender
+	 */
+	private void addSpouse(FamilyMember member, String name, Gender gender) {
+		FamilyMember spouse = FamilyMember.builder().name(name).gender(gender).build();
 		spouse.setSpouse(member);
 		member.setSpouse(spouse);
 	}
 
-	private Member addChild(Family family, String motherName, String name, Gender gender) {
-		Member child = Member.builder().name(name).gender(gender).build();
+	/**
+	 * Adds child to a member.
+	 * 
+	 * @param family
+	 * @param motherName
+	 * @param name
+	 * @param gender
+	 * @return member
+	 */
+	private FamilyMember addChild(Family family, String motherName, String name, Gender gender) {
+		FamilyMember child = FamilyMember.builder().name(name).gender(gender).build();
 		return family.addInitialChild(motherName, child);
 	}
 

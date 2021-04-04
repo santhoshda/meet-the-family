@@ -8,17 +8,18 @@ import java.util.Arrays;
 import java.util.List;
 import com.geektrust.meetthefamily.enums.Gender;
 import com.geektrust.meetthefamily.models.Family;
-import com.geektrust.meetthefamily.models.Member;
+import com.geektrust.meetthefamily.models.FamilyMember;
 import static com.geektrust.meetthefamily.constants.Messages.*;
 import static com.geektrust.meetthefamily.constants.Commands.*;
 
 /**
- * Main class to
+ * Main class to run the application.
  * 
  * @author Santhosh Babu A
  *
  */
 public class Main {
+
 	public static void main(String[] args) {
 		Family family = new FamilyInitializer().initialize();
 		Main main = new Main();
@@ -29,6 +30,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Reads file.
+	 * 
+	 * @param family
+	 * @param fileLocation
+	 */
 	private void processFile(Family family, String fileLocation) {
 		File file = new File(fileLocation);
 		try {
@@ -44,6 +51,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Process the read file
+	 * 
+	 * @param family
+	 * @param args
+	 */
 	private void processCommand(Family family, List<String> args) {
 		try {
 			if (args.get(0).equals(ADD_CHILD)) {
@@ -58,10 +71,25 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Manages ADD_CHILD command.
+	 * 
+	 * @param family
+	 * @param motherName
+	 * @param name
+	 * @param gender
+	 */
 	private void addChild(Family family, String motherName, String name, Gender gender) {
-		System.out.println(family.addChild(motherName, Member.builder().name(name).gender(gender).build()));
+		System.out.println(family.addChild(motherName, FamilyMember.builder().name(name).gender(gender).build()));
 	}
 
+	/**
+	 * Manages GET_RELATIONSHIP command.
+	 * 
+	 * @param family
+	 * @param name
+	 * @param relationship
+	 */
 	private void printRelationship(Family family, String name, String relationship) {
 		System.out.println(family.findRelationship(name, relationship));
 	}

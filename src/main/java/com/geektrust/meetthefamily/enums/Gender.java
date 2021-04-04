@@ -1,6 +1,8 @@
 package com.geektrust.meetthefamily.enums;
 
 /**
+ * Gender Enumeration.
+ * 
  * @author Santhosh Babu A
  *
  */
@@ -13,6 +15,12 @@ public enum Gender {
 		this.value = value;
 	}
 
+	/**
+	 * Converts String to Enum.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public static Gender of(String s) {
 		for (Gender gender : values()) {
 			if (gender.value.equals(s)) {
