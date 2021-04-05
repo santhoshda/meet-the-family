@@ -19,12 +19,12 @@ java -jar <path_to>/geektrust.jar <absolute_path_to_input_file>
 ```
 
 ### Accepted Commands
-1. ADD_CHILD Mother’s-Name Child's-Name Gender
-2. GET_RELATIONSHIP Name Relationship
+* ADD_CHILD Mother’s-Name Child's-Name Gender
+* GET_RELATIONSHIP Name Relationship
 
 ### Conditions
-1. Names should be single word and should not be repeated.
-2. Children can only be added to Females.
+* Names should be single word and should not be repeated.
+* Children can only be added to Females.
 
 #### Possible Genders
 * Male
